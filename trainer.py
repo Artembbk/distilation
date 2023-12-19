@@ -36,8 +36,8 @@ class Trainer():
                 loss.backward()
                 self.opt.step()
 
-                predictions = out.logits.argmax(-1)
-                score = calc_f1(predictions, labels)
+                predictions = out.logits.argmax(-1).tolist()
+                score = calc_f1(predictions, labels.tolist())
                 
                 if step % 50:
                     wandb.log({"train loss": loss})
