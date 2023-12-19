@@ -32,7 +32,7 @@ class Trainer():
                 input_ids = batch['input_ids'].to(self.device)
                 self.opt.zero_grad()    
                 out = self.model(input_ids)
-                loss = self.criterion(out.logits, labels)
+                loss = self.criterion(out.logits.view(-1, 9), labels.view(-1))
                 loss.backward()
                 self.opt.step()
 
