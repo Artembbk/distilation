@@ -61,7 +61,7 @@ class Trainer():
             wandb.log({"val loss": total_loss})
             wandb.log({"val score": total_score})
 
-        return self.model
+        wandb.finish()
 
 
 
