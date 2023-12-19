@@ -50,10 +50,10 @@ class Trainer():
                 labels = batch['labels'].to(self.device)
                 input_ids = batch['input_ids'].to(self.device)   
                 out = self.model(input_ids)
-                loss = self.criterion(out.logits, labels)
+                loss = self.criterion(out.logits.view(-1, 9), labels.view(-1))
 
-                predictions = out.logits.argmax(-1)
-                score = calc_f1(predictions, labels)
+                predictions = out.logits.argmax(-1).tolist()
+                score = calc_f1(predictions, labels.tolist())
 
                 total_loss += loss.item() / len(self.valid_loader)
                 total_score += score / len(self.valid_loader)
